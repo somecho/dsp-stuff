@@ -12,3 +12,5 @@ add_compile_options("$<$<CONFIG:Release>:-O3;-DNDEBUG;-s;-Wall;-Wpedantic>")
 add_executable(sine ${CMAKE_CURRENT_SOURCE_DIR}/src/sine.cpp)
 
 target_compile_features(sine PUBLIC cxx_std_23)
+
+target_link_libraries(sine PRIVATE sndfile)
