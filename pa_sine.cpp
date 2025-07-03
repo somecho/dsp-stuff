@@ -24,13 +24,16 @@ static int callback(const void *inputBuffer, void *outputBuffer,
   for (size_t i = 0; i < framesPerBuffer; i++) {
     const float freq = 440.f;
 
-    float sample = sinf(data->phase) * amp;
+    float sample = sinf(data->phase);
+    // sample = sample > 0.5f ? 1.f : -1.f; // Square
+    // sample = data->phase / TAU;                  // phasor
+    // sample = ((data->phase / TAU) - 0.5f) * 2.f; // sawtooth
     data->phase += TAU * freq / SAMPLE_RATE;
     if (data->phase > TAU) {
       data->phase -= TAU;
     }
-    *out++ = sample;
-    *out++ = sample;
+    *out++ = sample * amp;
+    *out++ = sample * amp;
   }
 
   return paContinue;

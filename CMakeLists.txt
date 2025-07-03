@@ -1,19 +1,36 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.25)
 
-project(dsp LANGUAGES CXX)
+project(dsp LANGUAGES CXX C)
 
 
+
+include(FetchContent)
+FetchContent_Declare(
+  JUCE
+  GIT_REPOSITORY https://github.com/juce-framework/JUCE
+  GIT_TAG 8.0.8
+  GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(JUCE)
+
+
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)
-
 
 add_compile_options("$<$<CONFIG:Debug>:-g;-Wall;-Wpedantic;-Wconversion>")
 add_compile_options("$<$<CONFIG:Release>:-O3;-DNDEBUG;-s;-Wall;-Wpedantic>")
 
-add_executable(sine ${CMAKE_CURRENT_SOURCE_DIR}/src/sine.cpp)
-add_executable(pa_sine ${CMAKE_CURRENT_SOURCE_DIR}/src/pa_sine.cpp)
-
-target_compile_features(sine PUBLIC cxx_std_23)
-target_compile_features(pa_sine PUBLIC cxx_std_23)
-
+add_executable(sine sine.cpp)
 target_link_libraries(sine PRIVATE sndfile)
+
+add_executable(pa_sine pa_sine.cpp)
 target_link_libraries(pa_sine PRIVATE portaudio)
+
+juce_add_gui_app(jucewindow
+  VERSION 0.0.0
+  NEEDS_CURL TRUE
+)
+target_sources(jucewindow PRIVATE jucewindow.cpp)
+target_link_libraries(jucewindow PRIVATE juce_core juce_gui_basics)
