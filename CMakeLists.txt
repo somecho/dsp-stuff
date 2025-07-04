@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.25)
 
 project(dsp LANGUAGES CXX C)
 
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 
+# Fetch Dependencies
 
 include(FetchContent)
 FetchContent_Declare(
@@ -11,13 +15,21 @@ FetchContent_Declare(
   GIT_TAG 8.0.8
   GIT_SHALLOW TRUE
 )
-FetchContent_MakeAvailable(JUCE)
 
+FetchContent_Declare(
+  PORTAUDIO
+  GIT_REPOSITORY https://github.com/PortAudio/portaudio
+  GIT_TAG v19.7.0
+  GIT_SHALLOW TRUE
+)
+FetchContent_Declare(
+  LIBSNDFILE
+  GIT_REPOSITORY https://github.com/libsndfile/libsndfile
+  GIT_TAG 1.2.2
+  GIT_SHALLOW TRUE
+)
+FetchContent_MakeAvailable(JUCE PORTAUDIO LIBSNDFILE)
 
-
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 
 add_compile_options("$<$<CONFIG:Debug>:-g;-Wall;-Wpedantic;-Wconversion>")
 add_compile_options("$<$<CONFIG:Release>:-O3;-DNDEBUG;-s;-Wall;-Wpedantic>")
