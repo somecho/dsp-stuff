@@ -6,15 +6,19 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 
+option(JUCE_PROJECTS "Enable JUCE projects" ON)
 # Fetch Dependencies
 
 include(FetchContent)
-FetchContent_Declare(
-  JUCE
-  GIT_REPOSITORY https://github.com/juce-framework/JUCE
-  GIT_TAG 8.0.8
-  GIT_SHALLOW TRUE
-)
+
+if(${JUCE_PROJECTS})
+  FetchContent_Declare(
+    JUCE
+    GIT_REPOSITORY https://github.com/juce-framework/JUCE
+    GIT_TAG 8.0.8
+    GIT_SHALLOW TRUE
+  )
+endif()
 
 FetchContent_Declare(
   PORTAUDIO
@@ -40,9 +44,11 @@ target_link_libraries(sine PRIVATE sndfile)
 add_executable(pa_sine pa_sine.cpp)
 target_link_libraries(pa_sine PRIVATE portaudio)
 
-juce_add_gui_app(jucewindow
-  VERSION 0.0.0
-  NEEDS_CURL TRUE
-)
-target_sources(jucewindow PRIVATE jucewindow.cpp)
-target_link_libraries(jucewindow PRIVATE juce_core juce_gui_basics)
+if(${JUCE_PROJECTS})
+  juce_add_gui_app(jucewindow
+    VERSION 0.0.0
+    NEEDS_CURL TRUE
+  )
+  target_sources(jucewindow PRIVATE jucewindow.cpp)
+  target_link_libraries(jucewindow PRIVATE juce_core juce_gui_basics)
+endif()
