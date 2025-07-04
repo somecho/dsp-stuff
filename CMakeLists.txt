@@ -11,8 +11,6 @@ option(JUCE_PROJECTS "Enable JUCE projects" ON)
 
 include(FetchContent)
 
-set(DSP_PROJECT_DEPENDENCIES PORTAUDIO LIBSNDFILE)
-
 if(${JUCE_PROJECTS})
   FetchContent_Declare(
     JUCE
@@ -20,7 +18,6 @@ if(${JUCE_PROJECTS})
     GIT_TAG 8.0.8
     GIT_SHALLOW TRUE
   )
-  list(APPEND DSP_PROJECT_DEPENDENCIES JUCE)
 endif()
 
 FetchContent_Declare(
@@ -29,12 +26,19 @@ FetchContent_Declare(
   GIT_TAG v19.7.0
   GIT_SHALLOW TRUE
 )
+
 FetchContent_Declare(
   LIBSNDFILE
   GIT_REPOSITORY https://github.com/libsndfile/libsndfile
   GIT_TAG 1.2.2
   GIT_SHALLOW TRUE
 )
+
+set(DSP_PROJECT_DEPENDENCIES PORTAUDIO LIBSNDFILE)
+
+if(${JUCE_PROJECTS})
+  list(APPEND DSP_PROJECT_DEPENDENCIES JUCE)
+endif()
 
 FetchContent_MakeAvailable(${DSP_PROJECT_DEPENDENCIES})
 
