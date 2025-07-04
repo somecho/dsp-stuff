@@ -11,6 +11,8 @@ option(JUCE_PROJECTS "Enable JUCE projects" ON)
 
 include(FetchContent)
 
+set(DSP_PROJECT_DEPENDENCIES PORTAUDIO LIBSNDFILE)
+
 if(${JUCE_PROJECTS})
   FetchContent_Declare(
     JUCE
@@ -18,6 +20,7 @@ if(${JUCE_PROJECTS})
     GIT_TAG 8.0.8
     GIT_SHALLOW TRUE
   )
+  list(APPEND DSP_PROJECT_DEPENDENCIES JUCE)
 endif()
 
 FetchContent_Declare(
@@ -32,7 +35,8 @@ FetchContent_Declare(
   GIT_TAG 1.2.2
   GIT_SHALLOW TRUE
 )
-FetchContent_MakeAvailable(JUCE PORTAUDIO LIBSNDFILE)
+
+FetchContent_MakeAvailable(${DSP_PROJECT_DEPENDENCIES})
 
 
 add_compile_options("$<$<CONFIG:Debug>:-g;-Wall;-Wpedantic;-Wconversion>")
