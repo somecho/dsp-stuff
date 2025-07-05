@@ -29,15 +29,17 @@ cmake --build build -j8 # the number of cores your CPU has
 ## Targets
 
 
-| Target             | Description                                         | Run (after building)                            |
-|--------------------|-----------------------------------------------------|-------------------------------------------------|
-| [sine][1]          | Writes a 4 second 440hz sine wave using libsndfile. | `./build/sine`                                  |
-| [pa_sine][2]       | Plays a 440hz sine wave with PortAudio              | `./build/pa_sine`                               |
-| [jucewindow][3]    | Simple JUCE window                                  | `./build/jucewindow_artefacts/Debug/jucewindow` |
-| [attackrelease][4] | Attack Release Envelope                             | `./build/attackrelease`                         |
+| Target             | Description                                                     | Run (after building)                                |
+|--------------------|-----------------------------------------------------------------|-----------------------------------------------------|
+| [sine][1]          | Writes a 4 second 440hz sine wave using libsndfile.             | `./build/sine`                                      |
+| [pa_sine][2]       | Plays a 440hz sine wave with PortAudio                          | `./build/pa_sine`                                   |
+| [jucewindow][3]    | Simple JUCE window                                              | `./build/jucewindow_artefacts/Debug/jucewindow`     |
+| [attackrelease][4] | Attack Release Envelope                                         | `./build/attackrelease`                             |
+| [jucegraphics][5]  | Example using main content component and graphics class in JUCE | `./build/jucegraphics_artefacts/Debug/jucegraphics` |
 
 
 [1]:./sine/sine.cpp
 [2]:./pa_sine/pa_sine.cpp
 [3]:./jucewindow/jucewindow.cpp
 [4]:./attackrelease/attackrelease.cpp
+[5]:./jucegraphics/jucegraphics.cpp
