@@ -10,8 +10,6 @@ MainWindow::MainWindow(juce::String name)
   // setSize(800, 800);
   setVisible(true);
   centreWithSize(getWidth(), getHeight());
-
-  closeButtonPressed();
 }
 
 MainWindow::~MainWindow() {};

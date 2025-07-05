@@ -1,5 +1,4 @@
 #include "MainComponent.h"
-#include "juce_graphics/juce_graphics.h"
 
 MainComponent::MainComponent() {
   addAndMakeVisible(btn);

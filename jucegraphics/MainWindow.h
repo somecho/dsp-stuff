@@ -2,8 +2,6 @@
 
 #include "juce_gui_basics/juce_gui_basics.h"
 
-#include "MainComponent.h"
-
 class MainWindow : public juce::DocumentWindow {
 public:
   MainWindow(juce::String name);
