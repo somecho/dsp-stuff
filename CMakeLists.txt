@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 
 option(JUCE_PROJECTS "Enable JUCE projects" ON)
+
 # Fetch Dependencies
 
 include(FetchContent)
@@ -43,13 +44,13 @@ endif()
 FetchContent_MakeAvailable(${DSP_PROJECT_DEPENDENCIES})
 
 
-add_compile_options("$<$<CONFIG:Debug>:-g;-Wall;-Wpedantic;-Wconversion>")
+add_compile_options("$<$<CONFIG:Debug>:-g;-Wall;-Wpedantic;-Wconversion;>")
 add_compile_options("$<$<CONFIG:Release>:-O3;-DNDEBUG;-s;-Wall;-Wpedantic>")
 
-add_executable(sine sine.cpp)
+add_executable(sine sine/sine.cpp)
 target_link_libraries(sine PRIVATE sndfile)
 
-add_executable(pa_sine pa_sine.cpp)
+add_executable(pa_sine pa_sine/pa_sine.cpp)
 target_link_libraries(pa_sine PRIVATE portaudio)
 
 if(${JUCE_PROJECTS})
@@ -57,6 +58,18 @@ if(${JUCE_PROJECTS})
     VERSION 0.0.0
     NEEDS_CURL TRUE
   )
-  target_sources(jucewindow PRIVATE jucewindow.cpp)
+  target_sources(jucewindow PRIVATE jucewindow/jucewindow.cpp)
   target_link_libraries(jucewindow PRIVATE juce_core juce_gui_basics)
+
+  juce_add_gui_app(jucegraphics
+    VERSION 0.0.0
+    NEEDS_CURL TRUE
+  )
+  target_sources(jucegraphics
+    PRIVATE
+      jucegraphics/jucegraphics.cpp
+      jucegraphics/MainWindow.cpp
+      jucegraphics/MainComponent.cpp
+  )
+  target_link_libraries(jucegraphics PRIVATE juce_core juce_gui_basics juce::juce_recommended_warning_flags)
 endif()
