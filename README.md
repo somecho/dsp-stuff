@@ -36,6 +36,7 @@ cmake --build build -j8 # the number of cores your CPU has
 | [jucewindow][3]    | Simple JUCE window                                              | `./build/jucewindow_artefacts/Debug/jucewindow`     |
 | [attackrelease][4] | Attack Release Envelope                                         | `./build/attackrelease`                             |
 | [jucegraphics][5]  | Example using main content component and graphics class in JUCE | `./build/jucegraphics_artefacts/Debug/jucegraphics` |
+| [adsr][6]          |                                                                 | `./build/adsr_artefacts/Debug/adsr`                 |
 
 
 [1]:./sine/sine.cpp
@@ -43,3 +44,4 @@ cmake --build build -j8 # the number of cores your CPU has
 [3]:./jucewindow/jucewindow.cpp
 [4]:./attackrelease/attackrelease.cpp
 [5]:./jucegraphics/jucegraphics.cpp
+[5]:./adsr/adsr.cpp
