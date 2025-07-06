@@ -26,7 +26,10 @@ void ADSREnvelope::trigger() {
   releasePhase = 0.0;
 }
 
-void ADSREnvelope::release() { setStage(Stage::Release); }
+void ADSREnvelope::release() {
+  valueOnRelease = sample();
+  setStage(Stage::Release);
+}
 
 bool ADSREnvelope::isTriggered() { return stage != Stage::Zero; }
 
@@ -64,7 +67,7 @@ double ADSREnvelope::sample() {
     return sustainGain;
   }
   case Stage::Release: {
-    return (1.0 - (releasePhase / numReleaseSamples)) * sustainGain;
+    return (1.0 - (releasePhase / numReleaseSamples)) * valueOnRelease;
   }
   }
   std::unreachable();

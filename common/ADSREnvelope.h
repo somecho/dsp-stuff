@@ -34,6 +34,8 @@ private:
   double attackGain;
   double sustainGain;
 
+  double valueOnRelease = 0.0;
+
   Stage stage = Stage::Zero;
 
   void setStage(Stage stage);

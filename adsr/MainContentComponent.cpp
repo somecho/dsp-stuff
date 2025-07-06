@@ -11,6 +11,15 @@ MainContentComponent::MainContentComponent() {
     }
   };
 
+  addAndMakeVisible(slider);
+  slider.setBounds(drumpad.getBounds().getRight(), 8, 180, 180);
+  slider.setRange(0.01, 2.0, 0.01);
+  slider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
+
+  slider.onValueChange = [this] {
+    adsr.setDurations(slider.getValue(), 0.01, 1.0);
+  };
+
   setSize(600, 400);
   setAudioChannels(0, 2);
 }
@@ -31,6 +40,8 @@ void MainContentComponent::prepareToPlay(int samplesPerBlockExpected,
   adsr.setSampleRate(sampleRate);
   adsr.setDurations(0.01, 0.01, 1.0);
   adsr.setGains(0.3, 0.3);
+
+  slider.setValue(0.01)
 }
 
 void MainContentComponent::getNextAudioBlock(
