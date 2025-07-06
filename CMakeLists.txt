@@ -51,6 +51,8 @@ add_compile_options("$<$<CONFIG:Release>:-O3;-DNDEBUG;-s;-Wall;-Wpedantic>")
 add_library(common)
 target_sources(common
   PRIVATE
+    common/ADSREnvelope.cpp
+    common/Signal.cpp
     common/SineOscillator.cpp
 )
 target_include_directories(common

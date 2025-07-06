@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ADSREnvelope.h>
 #include <SineOscillator.h>
 #include <juce_audio_utils/juce_audio_utils.h>
 
@@ -21,5 +22,6 @@ public:
 private:
   juce::TextButton drumpad;
   SineOscillator sinOsc;
+  ADSREnvelope adsr;
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainContentComponent)
 };
